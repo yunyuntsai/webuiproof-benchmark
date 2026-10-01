@@ -1,0 +1,270 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "arrayShape": "cr:arrayShape",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "containedIn": "cr:containedIn",
+    "cr": "http://mlcommons.org/croissant/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataBiases": "cr:dataBiases",
+    "dataCollection": "cr:dataCollection",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isArray": "cr:isArray",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "personalSensitiveInformation": "cr:personalSensitiveInformation",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "prov": "http://www.w3.org/ns/prov#"
+  },
+  "@type": "sc:Dataset",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "repo",
+      "name": "repo",
+      "description": "The Hugging Face git repository.",
+      "contentUrl": "https://huggingface.co/datasets/anon-auth-nips26/webuiproof-benchmark/tree/refs%2Fconvert%2Fparquet",
+      "encodingFormat": "git+https",
+      "sha256": "https://github.com/mlcommons/croissant/issues/80"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "parquet-files-for-config-default",
+      "containedIn": {
+        "@id": "repo"
+      },
+      "encodingFormat": "application/x-parquet",
+      "includes": "default/*/*.parquet"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "dataType": "cr:Split",
+      "key": {
+        "@id": "default_splits/split_name"
+      },
+      "@id": "default_splits",
+      "name": "default_splits",
+      "description": "Splits for the default config.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "default_splits/split_name",
+          "dataType": "sc:Text"
+        }
+      ],
+      "data": [
+        {
+          "default_splits/split_name": "test"
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "default",
+      "description": "anon-auth-nips26/webuiproof-benchmark - default subset. One record corresponds to one WebUI generation task with structured specification and executable tests.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "default/split",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "parquet-files-for-config-default"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            },
+            "transform": {
+              "regex": "default/(?:partial-)?(test)/.+parquet$"
+            }
+          },
+          "references": {
+            "field": {
+              "@id": "default_splits/split_name"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "default/task_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "parquet-files-for-config-default"
+            },
+            "extract": {
+              "column": "task_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "default/benchmark_family",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "parquet-files-for-config-default"
+            },
+            "extract": {
+              "column": "benchmark_family"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "default/website_summary",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "parquet-files-for-config-default"
+            },
+            "extract": {
+              "column": "website_summary"
+            }
+          },
+          "description": "Structured summary of the target website, including appearance and functionality requirements."
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "default/test_cases",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "parquet-files-for-config-default"
+            },
+            "extract": {
+              "column": "test_cases"
+            }
+          },
+          "description": "Executable UI test cases used to evaluate generated WebUI code."
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "default/element_requirement",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "parquet-files-for-config-default"
+            },
+            "extract": {
+              "column": "element_requirement"
+            }
+          },
+          "isArray": true,
+          "arrayShape": "-1"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "default/appearance",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "parquet-files-for-config-default"
+            },
+            "extract": {
+              "column": "appearance"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "default/functionality",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "parquet-files-for-config-default"
+            },
+            "extract": {
+              "column": "functionality"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "conformsTo": [
+    "http://mlcommons.org/croissant/1.1",
+    "http://mlcommons.org/croissant/RAI/1.0"
+  ],
+  "name": "webuiproof-benchmark",
+  "description": "WebUIProof is a benchmark for executable WebUI code generation. It contains structured WebUI specifications, required UI elements, and executable interaction tests for general WebUI and 3D WebUI simulation tasks.",
+  "alternateName": [
+    "anon-auth-nips26/webuiproof-benchmark"
+  ],
+  "creator": {
+    "@type": "Person",
+    "name": "anon-auth-nips26",
+    "url": "https://huggingface.co/anon-auth-nips26"
+  },
+  "keywords": [
+    "apache-2.0",
+    "🇺🇸 Region: US"
+  ],
+  "license": "https://choosealicense.com/licenses/apache-2.0/",
+  "url": "https://huggingface.co/datasets/anon-auth-nips26/webuiproof-benchmark",
+  "rai:dataLimitations": "WebUIProof is designed for evaluating WebUI code generation systems under structured specifications and executable UI-interaction tests. Its applicability is limited to frontend WebUI generation tasks, including general WebUI applications and 3D WebUI simulation interfaces. The dataset does not comprehensively cover backend implementation, database integration, authentication flow, or production-scale software engineering.\nThe dataset primarily uses English-language task descriptions and desktop-browser evaluation settings. Therefore, results may not generalize to multilingual interfaces.",
+  "rai:dataBiases": "The dataset may contain selection bias from the benchmark design and curation process. Tasks were selected and synthesized to emphasize visually and functionally testable WebUI behaviors, so common benchmarkable frontend patterns such as forms, dashboards, charts, media interfaces, games, interactive widgets, and simulation controls may be overrepresented. Less easily testable real-world workflows, such as complex authentication, long-term personalization, payment flows, accessibility-specific interactions, or domain-specific enterprise interfaces, may be underrepresented.",
+  "rai:personalSensitiveInformation": "The dataset is not designed to contain personal or sensitive information. It consists of synthetic or curated WebUI task specifications, UI element requirements, website summaries, and executable test cases. It does not intentionally include user profiles, private communications, real personal identifiers, medical records, financial records, political or religious beliefs, demographic attributes, or other sensitive personal data.\n\nNone of the listed sensitive categories are intentionally present: gender, socio-economic status, geography, language as a personal attribute, age, culture as a personal attribute, experience or seniority, health or medical data, political or religious beliefs, or other personal/sensitive information. The dataset may include generic references to interface domains or example website concepts, but these are task-level descriptions rather than information about real individuals.",
+  "rai:dataUseCases": "WebUIProof is intended to measure the ability of code-generation models to produce WebUI implementations that satisfy structured frontend specifications, render visually coherent interfaces, and pass executable UI-interaction tests. The benchmark represents the phenomenon of executable WebUI code generation: whether generated frontend code can build, render, expose required UI elements, and support specified user interactions.\n\nValidated use cases include benchmark evaluation of WebUI code generation models, comparison of model performance under a fixed UI-agent evaluation harness, analysis of visual and functional correctness, and research on execution-based or agent-based evaluation for frontend code generation. The dataset is also suitable for studying failure modes in generated WebUI code, such as missing required elements, broken interactions, incomplete visual structure, and runtime/build failures.\n\nThe dataset has not been validated for evaluating backend software engineering, security properties, accessibility compliance, mobile-app development, multilingual UI generation, production deployment readiness, or general-purpose programming ability outside the WebUI domain. It should not be used as the sole evidence for deploying model-generated interfaces in real-world applications.",
+  "rai:dataSocialImpact": "The potential positive impact of WebUIProof is to support more rigorous and reproducible evaluation of WebUI code generation systems. By pairing structured specifications with executable tests and UI-agent-based evaluation, the dataset can help reveal failures that are not captured by build success, screenshot similarity, or superficial visual inspection alone. This may encourage the development of models that generate more functional, testable, and reliable user interfaces.\n\nPotential risks include overfitting or over-optimization to benchmark-specific UI patterns, using benchmark scores as a proxy for broader software engineering ability, or assuming that a generated interface is production-ready simply because it passes WebUIProof tests. There is also a risk that models trained or selected using this dataset may perform better on English, desktop-oriented, benchmark-style WebUI tasks than on interfaces for underserved languages, mobile users, accessibility needs, or culturally specific design conventions.\n\nMitigations include releasing structured task specifications and executable tests for transparency, using a fixed evaluation harness for reproducibility, and clearly documenting that the benchmark is intended for research evaluation rather than production certification. Users should conduct human review and additional security, accessibility, and domain-specific testing before deploying generated WebUI code.",
+  "rai:hasSyntheticData": true,
+  "prov:wasDerivedFrom": [
+    {
+      "@id": "https://huggingface.co/datasets/lmarena-ai/webdev-arena-preference-10k",
+      "prov:label": "WebDev-Arena"
+    },
+    {
+      "@id": "https://huggingface.co/datasets/luzimu/WebGen-Bench",
+      "prov:label": "WebGen-Bench"
+    },
+    {
+      "@id": "https://threejs.org/examples/",
+      "prov:label": "Three.js Official Website"
+    }
+  ],
+  "prov:wasGeneratedBy": [
+    {
+      "@type": "prov:Activity",
+      "prov:type": {
+        "@id": "https://www.wikidata.org/wiki/Q4929239"
+      },
+      "sc:description": "Task descriptions and structured specifications were generated and refined using an automated and agent-assisted process. The goal was to create diverse WebUI generation tasks with explicit visual, structural, and interaction requirements. The generated tasks do not correspond to private user data."
+    }
+  ],
+  "citeAs": "WebUIProof: A Benchmark for Executable WebUI Code Generation. NeurIPS 2026 Evaluations and Datasets Track.",
+  "datePublished": "2026-05-06",
+  "version": "1.0.0"
+}

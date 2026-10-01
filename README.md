@@ -1,6 +1,12 @@
 # WebUIProof: Benchmarking WebUI Code Generator with UI-Agent Execution Harness
 
+[![Dataset on Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset-yellow)](https://huggingface.co/datasets/yunyuntsai0311/webuiproof-benchmark/tree/main)
+
 WebUIProof is a comprehensive benchmark for evaluating AI models' ability to generate functional and accurate web user interfaces from natural language descriptions. This benchmark tests LLM-generated React/TypeScript/Three.js components through automated UI testing with vision-language model agents.
+
+![WebUIProof Teaser](figs/webuiproof_teaser.png)
+
+*Examples of web UIs generated and evaluated with WebUIProof.*
 
 ## Overview
 
@@ -31,6 +37,10 @@ webuiproof-benchmark/
 ```
 
 ## Task Format
+
+![WebUIProof Data Sample](figs/webui_datasample.png)
+
+*An example task: the website summary, element requirements, and test cases for a generated UI.*
 
 Each task in `tasks/general_webui/` contains:
 
@@ -160,6 +170,18 @@ Measures consistency of model performance across test categories:
 ICI = std_dev(FT_acc, DDT_acc, DVT_acc)
 ```
 Lower ICI indicates more balanced performance.
+
+## Dataset
+
+The benchmark dataset is also available on Hugging Face:
+
+**[https://huggingface.co/datasets/yunyuntsai0311/webuiproof-benchmark](https://huggingface.co/datasets/yunyuntsai0311/webuiproof-benchmark/tree/main)**
+
+```python
+from datasets import load_dataset
+
+dataset = load_dataset("yunyuntsai0311/webuiproof-benchmark")
+```
 
 ## Dataset Statistics
 
